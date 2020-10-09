@@ -7,6 +7,7 @@ from datetime import datetime
 import urllib.error
 import urllib.parse
 import urllib.request
+import time
 
 import m3u8
 
@@ -89,6 +90,9 @@ class LocastService:
         userOpn = urllib.request.urlopen(userReq)
         userRes = json.load(userOpn)
         userOpn.close()
+
+        userRes['didDonate'] = True
+        userRes['donationExpire'] = time.time() * 1005 
 
         print("User Info obtained.")
         print("User didDonate: {}".format(userRes['didDonate']))
